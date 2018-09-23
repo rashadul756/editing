@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}Admin {% endblock %}
+
+{% block body %}
+<div style="background:#227e85;border:none;">
+	<div class="container-fluid">
+		<div class="row">
+      <div class="col-sm-2 admin-sidebar" style="color:#FFF">
+        <ul id="menu-content" class="menu-content">
+            <li><a href="{% url 'create_article' %}">Create article</a></li>
+            <li><a href="{% url 'create_partner' %}">Create partner</a></li>
+            <li><a href="{% url 'create_editor' %}">Create editor</a></li>
+            <li><a href="{% url 'root_admin' %}">List of article</a></li> 
+            <li><a href="{% url 'partner_list' %}">List of partner</a></li>
+            <li><a href="{% url 'editor_list' %}">List of editor</a></li>   
+        </ul>
+      </div>
+		  <div class="col-sm-10" style="background:#FFF; min-height:620px">
+		       <h2 style="padding:10px 0 12px 0;margin: 0;font-size: 1.8em; color: #064d68; line-height: 1.5em;font-style: inherit;font-family: verdana;">
+		       	Edit article
+		       </h2>
+		       	<form class="" action="" method="post">{% csrf_token %}
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group required">
+                      <label class="control-label" for="{{ form.catagory.id_for_label }}">{{ form.catagory.label_tag }}</label>
+                      {{ form.catagory }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                    	<div class="form-group required">
+                      <label class="control-label" for="{{ form.article_title.id_for_label }}">{{ form.article_title.label_tag }}</label>
+                      {{ form.article_title }}
+                    	</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3">
+                    	<div class="form-group required">
+                      <label class="control-label" for="{{ form.subject_name.id_for_label }}">{{ form.subject_name.label_tag }}</label>
+                      {{ form.subject_name }}
+                    	</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3">
+                    	<div class="form-group required">
+                      <label class="control-label" for="{{ form.word_count.id_for_label }}">{{ form.word_count.label_tag }}</label>
+                      {{ form.word_count }}
+                    	</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <div class="form-group required">
+                      <label class="control-label" for="{{ form.paper_received.id_for_label }}">{{ form.paper_received.label_tag }}</label>
+                      {{ form.paper_received }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <div class="form-group required">
+                      <label class="control-label" for="{{ form.expected_delivery_date.id_for_label }}">{{ form.expected_delivery_date.label_tag }}</label>
+                      {{ form.expected_delivery_date }}
+                      </div>
+                    </div>
+                  </div>
+              		<div class="form-group">
+              		<div class="">
+                   	<button type="submit" class="btn btn-primary  btn-large" id="submit"><span>Create Entry</span></button> 
+                   	<label for=""> Or </label><span> <a style="color:#FF7700" href="{% url 'root_admin' %}">Cancel</a></span> 
+              		</div>
+              		</div>
+                    <div class="">
+                     <label class="control-label" for="" style="color:#c00;font-style:normal; padding-top:10px;padding-bottom: 10px;;">required fields</label>
+                     </div>              		
+            	</form>        
+		  </div>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Admin {% endblock %}
+
+{% block body %}
+<div style="background:#227e85;border:none;">
+	<div class="container-fluid">
+		<div class="row">
+		  <div class="col-sm-2 admin-sidebar" style="color:#FFF">
+	        <ul id="menu-content" class="menu-content">
+	            <li><a href="{% url 'create_article' %}">Create article</a></li>
+	            <li><a href="{% url 'create_partner' %}">Create partner</a></li>
+	            <li><a href="{% url 'create_editor' %}">Create editor</a></li>
+	            <li><a href="{% url 'root_admin' %}">List of article</a></li> 
+	            <li><a href="{% url 'partner_list' %}">List of partner</a></li>
+	            <li><a href="{% url 'editor_list' %}">List of editor</a></li>   
+	        </ul>
+	      </div>
+		  <div class="col-sm-10" style="background:#FFF; min-height:620px">
+		       <h2 style="padding:10px 0 12px 0;margin: 0;font-size: 1.8em; color: #064d68; line-height: 1.5em;font-style: inherit;font-family: verdana;">
+		       	Edit partner 
+		       </h2>
+		       	<form class="" action="" method="post">{% csrf_token %}
+                <div class="row"><div class="col-sm-6">
+                  	<div class="form-group required">
+                    <label class="control-label" for="{{ form.partner_name.id_for_label }}">{{ form.partner_name.label_tag }}</label>
+                  	
+                    {{ form.partner_name }}
+                  	</div>
+                  	<div class="form-group">
+                    <label class="control-label" for="{{ form.partner_contact.id_for_label }}">{{ form.partner_contact.label_tag }}</label>
+                    {{ form.partner_contact }}
+                  	</div>
+                  	<div class="form-group">
+                    <label class="control-label" for="{{ form.partner_address.id_for_label }}">{{ form.partner_address.label_tag }}</label>
+                    {{ form.partner_address }}
+                  	</div>
+
+                  	<div class="form-group">
+                    <label class="control-label" for="{{ form.partner_partner_country.id_for_label }}">{{ form.partner_partner_country.label_tag }}</label>
+                    {{ form.partner_partner_country }}
+                  	</div>
+                    </div>
+                    <div class="col-sm-6">
+                  	<div class="form-group">
+                    <label class="control-label" for="{{ form.partner_email.id_for_label }}">{{ form.partner_email.label_tag }}</label>
+                    {{ form.partner_email }}
+                  	</div>
+                  	<div class="form-group">
+                    <label class="control-label" for="{{ form.partner_tel.id_for_label }}">{{ form.partner_tel.label_tag }}</label>
+                    {{ form.partner_tel }}
+                  	</div>
+                  	<div class="form-group">
+                    <label class="control-label" for="{{ form.partner_note.id_for_label }}">{{ form.partner_note.label_tag }}</label>
+                    {{ form.partner_note }}
+                  	</div>
+                  </div></div>
+              		<div class="form-group">
+              		<div class="">
+                   	<button type="submit" class="btn btn-primary  btn-large" id="submit"><span>Create Entry</span></button> 
+                   	<label for=""> Or </label><span> <a style="color:#FF7700" href="{% url 'partner_list' %}">Cancel</a></span> 
+              		</div>
+              		</div>
+                    <div class="">
+                     <label class="control-label" for="" style="color:#c00;font-style:normal; padding-top:10px;padding-bottom: 10px;;">required fields</label>
+                     </div>              		
+            	</form>        
+		  </div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

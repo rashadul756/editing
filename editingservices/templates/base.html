@@ -1,0 +1,55 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+  
+    <title>eScienta|{% block title %}{% endblock %}</title>
+  
+    <link rel="shortcut icon" href="/static/images/logo2.png" type="image/png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+      
+  </head>
+  
+
+    <body>
+      
+      <nav class="navbar navbar-inverse" id="nav_bar">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+              <img src="http://escienta.com/wp-content/uploads/2018/02/escientia-logo1v4-Full-white-190px.png" style="width: 100px;padding: 7px;">
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+              <li><a class="hvr-underline-from-center" href="{% url 'article' %}">Article</a></li>
+                <li><a class="hvr-underline-from-center" href="{% url 'partner' %}">Partner</a></li>
+                <li><a class="hvr-underline-from-center" href="{% url 'editor' %}">Editor</a></li>
+              <li class=""><a class="hvr-underline-from-center" href="{% url 'root_admin' %}">Admin<span class="sr-only">(current)</span></a></li>
+                <li class=""><a class="hvr-underline-from-center" href="{% url 'logout_view' %}">Logout<span class="sr-only">(current)</span></a></li>
+              </ul>
+
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
+        
+        {% block body %}
+
+        {% endblock %}
+     
+    </body>
+</html>

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}Admin {% endblock %}
+
+{% block body %}
+<div style="background:#227e85;border:none;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2 admin-sidebar" style="color:#FFF">
+        <ul id="menu-content" class="menu-content">
+        {% if article.catagory == 'Partner' %}
+          {% if article.articlepartner_set.all %}
+          <li><a href="" title="Partner already add">Add partner</a></li>
+          {% else %}
+              <li><a href="{% url 'partner_add' article.slug %}">Add partner</a></li>
+        {% endif %}
+        {% endif %}
+          <li><a href="{% url 'editor_add' article.slug %}">Add editor</a></li>
+            <li><a href="{% url 'author_add' article.slug %}">Add author</a></li>
+            <li><a href="{% url 'target_journal_add' article.slug %}">Add target journal</a></li>
+        {% if article.service_set.all %}
+          <li><a title="Service already add">Add service {{ article.catagory }}</a></li>
+        {% else %}
+            <li><a href="{% url 'service_add' article.slug %}">Add service {{ article.catagory }}</a></li>
+        {% endif %}
+          
+        </ul>
+      </div>
+      <div class="col-sm-10" style="background:#FFF; min-height:620px">
+           <h2 style="padding:10px 0 12px 0;margin: 0;font-size: 1.8em; color: #064d68; line-height: 1.5em;font-style: inherit;font-family: verdana;">
+            Create a service for "{{article.article_title}}"
+           </h2>
+            <form class="" action="" method="post">{% csrf_token %}
+                    <input type="hidden" name="article" value="{{ article }}"> 
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.service_currency.id_for_label }}">{{ form.service_currency.label_tag }}</label>
+                    {{ form.service_currency }}
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-3">
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.english_editing.id_for_label }}">{{ form.english_editing.label_tag }}</label>
+                    {{ form.english_editing }}
+                    </div>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.english_editing_price.id_for_label }}">{{ form.english_editing_price.label_tag }}</label>
+                    {{ form.english_editing_price }}
+                    </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-3">
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.scientific_editing.id_for_label }}">{{ form.scientific_editing.label_tag }}</label>
+                    {{ form.scientific_editing }}
+                    </div>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.scientific_editing_price.id_for_label }}">{{ form.scientific_editing_price.label_tag }}</label>
+                    {{ form.scientific_editing_price }}
+                    </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-3">
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.presubmission_review.id_for_label }}">{{ form.presubmission_review.label_tag }}</label>
+                    {{ form.presubmission_review }}
+                    </div>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.presubmission_review_price.id_for_label }}">{{ form.presubmission_review_price.label_tag }}</label>
+                    {{ form.presubmission_review_price }}
+                    </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-3">
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.journal_selection.id_for_label }}">{{ form.journal_selection.label_tag }}</label>
+                    {{ form.journal_selection }}
+                    </div>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.journal_selection_price.id_for_label }}">{{ form.journal_selection_price.label_tag }}</label>
+                    {{ form.journal_selection_price }}
+                    </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-3">
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.date_invoice.id_for_label }}">{{ form.date_invoice.label_tag }}</label>
+                    {{ form.date_invoice }}
+                    </div>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                    <label class="control-label" for="{{ form.author_invoice_number.id_for_label }}">{{ form.author_invoice_number.label_tag }}</label>
+                    {{ form.author_invoice_number }}
+                    </div>
+                    </div>
+                    
+                    </div>
+                  <div class="form-group">
+                  <div class="">
+                    <button type="submit" class="btn btn-primary  btn-large" id="submit"><span>Create Entry</span></button> 
+                    <label for=""> Or </label><span> <a style="color:#FF7700" href="{% url 'article_detail' article.slug %}">Cancel</a></span> 
+                  </div>
+                  </div>
+                    <div class="">
+                     <label class="control-label" for="" style="color:#c00;font-style:normal; padding-top:10px;padding-bottom: 10px;;">required fields</label>
+                     </div>                 
+              </form>        
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

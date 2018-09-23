@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>A simple, clean, and responsive HTML invoice template</title>
+    
+    <style>
+    .invoice-box {
+        margin: auto;
+
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+    
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+    }
+    
+    .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+    }
+    
+    .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+    }
+    
+    .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+    }
+    
+    .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+    
+    .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+    }
+    
+    .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+    }
+    
+    .invoice-box table tr.details td {
+        padding-bottom: 20px;
+    }
+    
+    .invoice-box table tr.item td{
+        border-bottom: 1px solid #eee;
+    }
+    
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+    
+    .invoice-box table tr.total td:nth-child(4) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+
+    .invoice-box table tr.total  td{
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+    
+    /** RTL **/
+    .rtl {
+        direction: rtl;
+        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    }
+    
+    .rtl table {
+        text-align: right;
+    }
+    
+    .rtl table tr td:nth-child(2) {
+        text-align: left;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>eScienta</strong><br>
+                                9 Merritt Road,<br>
+                                Didcot, OX11 7DF, UK<br>
+                                01235811351<br>
+                                info@escienta.com
+                            </td>
+                            
+                            <td class="title">
+                                <img src="escienta_log.png" style="width:100%; max-width:300px;">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td style="max-width:130px;">
+                                <strong>INVOICE TO</strong><br>
+                                [[university_name]]<br>
+                                [[university_address]],<br>
+                                [[university_country]]
+                            </td>
+                            
+                            <td style="padding-left:120px;text-align:left;">
+                                <strong>SHIP TO</strong><br>
+                                [[university_name]]<br>
+                                [[university_address]],<br>
+                                [[university_country]]
+                            </td>
+
+                            <td style="text-align:right;">
+                                <strong>INVOICE NO.: </strong><span>[[invoice_no]]</span><br>
+                                <strong>DATE: </strong><span>[[invoice_date]]</span><br>
+                                <strong>DUE DATE: </strong><span>[[invoice_due_date]]</span><br>
+                                <strong>TERMS: </strong><span>Net 30</span>                            
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr class="heading">
+                <td>
+                    DESCRIPTION
+                </td>
+                
+                <td>
+                    QTY
+                </td>
+                <td>
+                    RATE
+                </td>
+                
+                <td>
+                    AMOUNT
+                </td>
+            </tr>
+            
+            <tr class="details">
+                <td style="font-size:12px;">
+                    <strong>Author Publishing Fee</strong><br>
+                    [[article_title]]<br>
+                    Author: [[article_author]]<br>
+                    Acceptance date: [[article_acceptance_date]]<br>
+                    Journal: [[journal_name]]<br>
+                </td>
+                
+                <td>
+                    1
+                </td>
+                <td>
+                    [[amount]]
+                </td>
+                
+                <td>
+                    [[currency_type]][[amount]]
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td>BALANCE </td>
+                <td>DUE</td>
+                <td>
+                    [[currency_type]][[amount]]
+                </td>
+            </tr>
+        </table>
+        <table style="margin-top:500px;margin-left:35%;">
+            <tr style="margin-left:5%;">
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bank details for payment    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    HSBC Bank | Didcot | OX11 8RP | UK    
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>

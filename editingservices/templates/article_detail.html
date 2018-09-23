@@ -1,0 +1,910 @@
+{% extends 'base.html' %}
+{% block title %}Admin {% endblock %}
+
+{% block body %}
+<div style="background:#227e85;border:none;">
+	<div class="container-fluid">
+		<div class="row">
+		  <div class="col-sm-2 admin-sidebar" style="color:#FFF">
+		    <ul id="menu-content" class="menu-content">
+		    {% if article.catagory == 'Partner' %}
+	    		{% if article.articlepartner_set.all %}
+					<li><a href="" title="Partner already add">Add partner</a></li>
+			    {% else %}
+			        <li><a href="{% url 'partner_add' article.slug %}">Add partner</a></li>
+				{% endif %}
+		    {% endif %}
+		    	<li><a href="{% url 'editor_add' article.slug %}">Add editor</a></li>
+		        <li><a href="{% url 'author_add' article.slug %}">Add author</a></li>
+		        <li><a href="{% url 'target_journal_add' article.slug %}">Add target journal</a></li>
+		    {% if article.service_set.all %}
+		    	<li><a title="Service already add">Add service {{ article.catagory }}</a></li>
+		    {% else %}
+		        <li><a href="{% url 'service_add' article.slug %}">Add service {{ article.catagory }}</a></li>
+		    {% endif %}
+		      
+		    </ul>
+		  </div>
+		  <div id="Div1" class="col-sm-10" style="background:#FFF; min-height:820px">
+		  		<div style="color: #000;font-style: inherit;font-family: verdana;background: #ddd;padding: 10px;margin-right: -15px;margin-left: -15px;">
+			       	
+			       	{% if article.paper_received %}
+				    <a href="#" class="btn btn-info btn-sm">
+			          Paper rcvd on <span class="glyphicon glyphicon-ok"></span> 
+			        </a>
+			        {% else %}
+			        <a href="#" class="btn btn-danger btn-sm">
+			          Paper rcvd on <span class="glyphicon glyphicon-remove"></span> 
+			        </a>  
+				    {% endif %}
+				    {% if article.expected_delivery_date %}
+				    <a href="#" class="btn btn-info btn-sm">
+			          Exp del dd <span class="glyphicon glyphicon-ok"></span> 
+			        </a>
+			        {% else %}
+			        <a href="#" class="btn btn-danger btn-sm">
+			          Exp del dd <span class="glyphicon glyphicon-remove"></span> 
+			        </a> 
+				    {% endif %}
+				    {% if article.catagory == 'Partner' %}
+			    		{% if article.articlepartner_set.all %}
+			    				<a href="#" class="btn btn-info btn-sm">
+						          Partner <span class="glyphicon glyphicon-ok"></span> 
+						        </a>
+					    {% else %}
+					       <a href="#" class="btn btn-danger btn-sm">
+				          	Partner <span class="glyphicon glyphicon-remove"></span> 
+				        	</a>  
+						{% endif %}
+				    {% endif %}
+				    {% if article.author_set.all %}
+						    <a href="#" class="btn btn-info btn-sm">
+					          Author <span class="glyphicon glyphicon-ok"></span> 
+					        </a>
+				    {% else %}
+				        <a href="#" class="btn btn-danger btn-sm">
+				          Author <span class="glyphicon glyphicon-remove"></span> 
+				        </a> 
+					{% endif %}
+					{% if article.target_journal_set.all %}
+						    <a href="#" class="btn btn-info btn-sm">
+					          Journal <span class="glyphicon glyphicon-ok"></span> 
+					        </a>
+				    {% else %}
+				        <a href="#" class="btn btn-danger btn-sm">
+				          Journal <span class="glyphicon glyphicon-remove"></span> 
+				        </a> 
+					{% endif %}
+					{% if article.service_set.all %}
+						    <a href="#" class="btn btn-info btn-sm">
+					          Service <span class="glyphicon glyphicon-ok"></span> 
+					        </a>    
+				    {% else %}
+				        <a href="#" class="btn btn-danger btn-sm">
+				          Service <span class="glyphicon glyphicon-remove"></span> 
+				        </a> 
+					{% endif %}
+					{% if article.articleeditor_set.all %}
+						    <a href="#" class="btn btn-info btn-sm">
+					          Editor <span class="glyphicon glyphicon-ok"></span> 
+					        </a>
+				    {% else %}
+				        <a href="#" class="btn btn-danger btn-sm">
+				          Editor <span class="glyphicon glyphicon-remove"></span> 
+				        </a> 
+					{% endif %}
+					
+					{% if article.service_set.all %}
+				    	{% for se in article.service_set.all %}
+				    		{% if se.author_invoice_number %}
+						    <a href="#" class="btn btn-info btn-sm">
+					          Invoice <span class="glyphicon glyphicon-ok"></span> 
+					        </a>
+					        {% elif se.date_invoice %}
+					        <a href="#" class="btn btn-info btn-sm">
+					          Invoice <span class="glyphicon glyphicon-ok"></span> 
+					        </a>
+					        {% else %}
+						    <a href="#" class="btn btn-danger btn-sm">
+					          Invoice <span class="glyphicon glyphicon-remove"></span> 
+					        </a> 
+							{% endif %}
+					    {% endfor %}
+					{% else %}
+					    <a href="#" class="btn btn-danger btn-sm">
+				          Invoice <span class="glyphicon glyphicon-remove"></span> 
+				        </a>    
+				    {% endif %}
+
+					{% if article.paper_sent_author %}
+				    <a href="#" class="btn btn-info btn-sm">
+			          Delivery <span class="glyphicon glyphicon-ok"></span> 
+			        </a>
+			        {% else %}
+			        <a href="#" class="btn btn-danger btn-sm">
+			          Delivery <span class="glyphicon glyphicon-remove"></span> 
+			        </a> 
+				    {% endif %}
+				    {% if article.payment_received_on %}
+					    <a href="#" class="btn btn-info btn-sm">
+				          Payment <span class="glyphicon glyphicon-ok"></span> 
+				        </a>
+					{% else %}
+				        <a href="#" class="btn btn-danger btn-sm">
+				          Payment <span class="glyphicon glyphicon-remove"></span> 
+				        </a>     
+				    {% endif %}
+				   <input id="Button1" type="button" value="Edit view" onclick="switchVisible();"/> 
+					
+			</div>
+			    <p style="margin: 0;font-size: 0.9em; color: #064d68;font-style: inherit;font-family: verdana;">
+			       Article Id - {{ article.booking_id }}
+			    
+			    </p>
+			    <h2 style="padding:4px 0 4px 0;margin: 0;font-size: 1.8em; color: #064d68; line-height: 1.5em;font-style: inherit;font-family: verdana;">
+			       {{ article.article_title }} 
+
+			    </h2>
+			   
+			 	{% if article.author_set.all%}
+			    <div>
+			    	<ul class="navigation">
+			    	{% for author in article.author_set.all %}
+						<li>
+					    	<span class="option">{{ author.author_name }}</span>
+					        <div class="option-container hidden">
+					        <div style="margin-top: -20px;margin-left: 10px;">
+					        	<i style="font-size: 28px;color: #bababb" class="fa fa-caret-up" aria-hidden="true"></i>
+					        </div>
+					        	<ul class="list-group">
+                                      <li class="list-group-item" style="font-style: initial;font-family: verdana;font-size: large;">{{ author.author_name }}
+                                      </li>
+                                      <li class="list-group-item"><i class="fa fa-certificate"></i> {{ author.author_type }}
+                                      </li>
+                                      <li class="list-group-item"><i class="fa fa-university" aria-hidden="true"></i>
+                                      {{ author.affiliation }}
+                                      </li>
+                                      <li class="list-group-item"><i class="fa fa-user"></i> {{ author.department }}
+                                      </li>
+                                      <li class="list-group-item"><i class="fa fa-map-marker"></i> 
+                                      {{ author.address }}
+                                      </li>
+                                      <li class="list-group-item"><i class="fa fa-globe"></i> 
+                                      {{ author.author_country }}
+                                       </li>
+                                      <li class="list-group-item"><i class="fa fa-phone"></i> {{ author.tel }} 
+                                      </li>
+                                      <li class="list-group-item"><i class="fa fa-envelope"></i> {{ author.email }}
+                                      </li>
+					            </ul>
+					        </div>
+					    </li>
+					{% endfor %}
+					</ul>
+			    </div>
+			    <br>
+			    <br>
+			    {% else %}
+			    {% endif %}
+
+			    <p>
+			    {% if article.catagory %}
+			   		Paper recived from - {{ article.catagory }}
+			    {% endif %}
+			    {% if article.subject_name %}
+			    	| Subject - {{ article.subject_name }} 
+			    {% endif %}
+			    {% if article.word_count %}
+			    	| Word - {{ article.word_count }}
+			    {% endif %}
+			    </p>
+			    <p>
+			    {% if article.paper_received %}
+			    	Paper recived date - {{ article.paper_received }} 
+			    {% endif %}
+			    {% if article.expected_delivery_date %}
+			    	| Expected delivery date - {{ article.expected_delivery_date }} 
+			    {% endif %}
+			    
+			    </p>
+			    <p>
+			    {% if article.paper_sent_author %}
+			    	Delivery date - {{ article.paper_sent_author }} 
+			    {% endif %}
+			    {% if article.payment_received_on %}
+			    	| Payment received date - {{ article.payment_received_on }}
+			    {% endif %}
+			    
+			    </p>
+			    {% for ap in article.articlepartner_set.all %}
+			    <p> Partner -
+			    {{ ap.partner }}
+			    	{% if ap.partner_serial_send_no %}
+			     		| Partner referance serial no - {{ ap.partner_serial_send_no }}
+			     	{% endif %}	
+			     </p> 
+			    {% endfor %}
+			     
+			    {% for t in article.target_journal_set.all %}
+			    <p> Target journal -
+			    <a href="" title="{{ t.journal_name }} - {{ t.publisher_name }} ">{{ t.journal_name }} </a>{{ t.publisher_name }}
+			     </p> 
+			    {% endfor %}
+			    
+			    <p style="font-weight: 600;color:#064d68;">Service for {{ article.catagory }}</p>           
+				  <table class="table table-bordered" style="">
+				    <thead>
+				      <tr>
+				        <th>Service name</th>
+				        <th>Author invoice number</th>
+				        <th>Invoice date</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				    <tr>
+				    	{% for ae in article.service_set.all %}
+				    	<td>
+				    		<table class="table" style="margin-top: -9px;margin-bottom: -9px;">
+				    	
+					      	{% if ae.english_editing %}
+					        <tr>
+					        <td>{{ ae.english_editing }}</td>
+					        <td align="right">{{ ae.english_editing_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        </tr>
+					        {% endif %}
+					        {% if ae.scientific_editing %}
+					        <tr>
+					        <td>{{ ae.scientific_editing }}</td>
+					        <td align="right">{{ ae.scientific_editing_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        </tr>
+					        {% endif %}
+					        {% if ae.presubmission_review %}
+					        <tr>
+					        <td>{{ ae.presubmission_review }}</td>
+					        <td align="right">{{ ae.presubmission_review_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        
+					        </tr>
+					        {% endif %}
+					        {% if ae.journal_selection %}
+					        <tr>
+					        <td>{{ ae.journal_selection }}</td>
+					        <td align="right">{{ ae.journal_selection_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					       
+					        </tr>
+
+					        {% endif %}
+						
+				    		</table>
+				    	</td>
+				    	
+				    	<td>
+					        {% if ae.author_invoice_number %}
+					        	{{ ae.author_invoice_number }}
+					        {% else %}
+					        	----
+					        {% endif %}
+					    </td>
+					       
+					    <td>
+					        {% if ae.date_invoice %}
+					        	{{ ae.date_invoice }}
+					        {% else %}
+					        	----
+					        {% endif %}
+					    </td>
+					   
+				    	
+				        {% endfor %}
+				    </tr>
+				    
+				    </tbody>
+				  </table>
+
+			    <p style="font-weight: 600;color:#064d68;"> Editor -</p>
+			    <table class="table table-bordered">
+				    <thead>
+				      <tr>
+				        <th>Editor</th>
+				        <th>Service</th>
+				        <th>Paper sent</th>
+				        <th>Expected date</th>
+				        <th>Returned date</th>
+				        <th>Invoice no.</th>
+				        <th>Payment date</th>
+				      </tr>
+				    </thead>
+				    {% for ae in article.articleeditor_set.all %}
+				    <tbody>
+					      <tr>
+					        <td>{{ ae.editor }}</td>
+					        <td style=""> 
+					        <table class="table" style="margin-top: -9px;margin-bottom: -9px;">
+					        {% if ae.english_editing %}
+					        <tr>
+					        <td>{{ ae.english_editing }}</td>
+					        <td align="right">{{ ae.english_editing_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        </tr>
+					        {% endif %}
+					        {% if ae.scientific_editing %}
+					        <tr>
+					        <td>{{ ae.scientific_editing }}</td>
+					        <td align="right">{{ ae.scientific_editing_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        </tr>
+					        {% endif %}
+					        {% if ae.presubmission_review %}
+					        <tr>
+					        <td>{{ ae.presubmission_review }}</td>
+					        <td align="right">{{ ae.presubmission_review_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        
+					        </tr>
+					        {% endif %}
+					        {% if ae.journal_selection %}
+					        <tr>
+					        <td>{{ ae.journal_selection }}</td>
+					        <td align="right">{{ ae.journal_selection_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					       
+					        </tr>
+					        {% endif %}
+					        
+					        </table>
+					        </td>
+					        <td>
+					        {% if ae.paper_sent_editor %}
+					        	{{ ae.paper_sent_editor }}
+					        {% else %}
+					        	----
+					        {% endif %}
+					        </td>
+					        <td>
+					        {% if ae.expected_returned_paper %}
+					        	{{ ae.expected_returned_paper }}
+					        {% else %}
+					        	----
+					        {% endif %}
+					        </td>
+					        <td>
+					        {% if ae.editor_returned_paper %}
+					        	{{ ae.editor_returned_paper }}
+					        {% else %}
+					        	----
+					        {% endif %}
+					        </td>
+					        <td>
+					        {% if ae.editor_invoice_no %}
+					        	{{ ae.editor_invoice_no }}
+					        {% else %}
+					        	----
+					        {% endif %}
+					        </td>
+					        <td>
+					        {% if ae.editor_payment_sent %}
+					        	{{ ae.editor_payment_sent }}
+					        {% else %}
+					        	----
+					        {% endif %}
+					        </td>
+					      </tr>
+				    </tbody>
+				    {% endfor %} 
+				  </table>
+				  
+				  
+			   	</div>
+
+			   	<!--Edite View-->
+			   	<div id="Div2" class="col-sm-10" style="background:#FFF; min-height:820px">
+		  		<div style="color: #000;font-style: inherit;font-family: verdana;background: #ddd;padding: 10px;margin-right: -15px;margin-left: -15px;">
+			       	
+			       	{% if article.paper_received %}
+				    <a href="#" class="btn btn-info btn-sm">
+			          Paper rcvd on <span class="glyphicon glyphicon-ok"></span> 
+			        </a>
+			        {% else %}
+			        <a href="#" class="btn btn-danger btn-sm">
+			          Paper rcvd on <span class="glyphicon glyphicon-remove"></span> 
+			        </a>  
+				    {% endif %}
+				    {% if article.expected_delivery_date %}
+				    <a href="#" class="btn btn-info btn-sm">
+			          Exp del dd <span class="glyphicon glyphicon-ok"></span> 
+			        </a>
+			        {% else %}
+			        <a href="#" class="btn btn-danger btn-sm">
+			          Exp del dd <span class="glyphicon glyphicon-remove"></span> 
+			        </a> 
+				    {% endif %}
+				    {% if article.catagory == 'Partner' %}
+			    		{% if article.articlepartner_set.all %}
+			    				<a href="#" class="btn btn-info btn-sm">
+						          Partner <span class="glyphicon glyphicon-ok"></span> 
+						        </a>
+					    {% else %}
+					       <a href="#" class="btn btn-danger btn-sm">
+				          	Partner <span class="glyphicon glyphicon-remove"></span> 
+				        	</a>  
+						{% endif %}
+				    {% endif %}
+				    {% if article.author_set.all %}
+						    <a href="#" class="btn btn-info btn-sm">
+					          Author <span class="glyphicon glyphicon-ok"></span> 
+					        </a>
+				    {% else %}
+				        <a href="#" class="btn btn-danger btn-sm">
+				          Author <span class="glyphicon glyphicon-remove"></span> 
+				        </a> 
+					{% endif %}
+					{% if article.target_journal_set.all %}
+						    <a href="#" class="btn btn-info btn-sm">
+					          Journal <span class="glyphicon glyphicon-ok"></span> 
+					        </a>
+				    {% else %}
+				        <a href="#" class="btn btn-danger btn-sm">
+				          Journal <span class="glyphicon glyphicon-remove"></span> 
+				        </a> 
+					{% endif %}
+					{% if article.service_set.all %}
+						    <a href="#" class="btn btn-info btn-sm">
+					          Service <span class="glyphicon glyphicon-ok"></span> 
+					        </a>    
+				    {% else %}
+				        <a href="#" class="btn btn-danger btn-sm">
+				          Service <span class="glyphicon glyphicon-remove"></span> 
+				        </a> 
+					{% endif %}
+					{% if article.articleeditor_set.all %}
+						    <a href="#" class="btn btn-info btn-sm">
+					          Editor <span class="glyphicon glyphicon-ok"></span> 
+					        </a>
+				    {% else %}
+				        <a href="#" class="btn btn-danger btn-sm">
+				          Editor <span class="glyphicon glyphicon-remove"></span> 
+				        </a> 
+					{% endif %}
+					
+					{% if article.service_set.all %}
+				    	{% for se in article.service_set.all %}
+				    		{% if se.author_invoice_number %}
+						    <a href="#" class="btn btn-info btn-sm">
+					          Invoice <span class="glyphicon glyphicon-ok"></span> 
+					        </a>
+					        {% elif se.date_invoice %}
+					        <a href="#" class="btn btn-info btn-sm">
+					          Invoice <span class="glyphicon glyphicon-ok"></span> 
+					        </a>
+					        {% else %}
+						    <a href="#" class="btn btn-danger btn-sm">
+					          Invoice <span class="glyphicon glyphicon-remove"></span> 
+					        </a> 
+							{% endif %}
+					    {% endfor %}
+					{% else %}
+					    <a href="#" class="btn btn-danger btn-sm">
+				          Invoice <span class="glyphicon glyphicon-remove"></span> 
+				        </a>    
+				    {% endif %}
+
+					{% if article.paper_sent_author %}
+				    <a href="#" class="btn btn-info btn-sm">
+			          Delivery <span class="glyphicon glyphicon-ok"></span> 
+			        </a>
+			        {% else %}
+			        <a href="#" class="btn btn-danger btn-sm">
+			          Delivery <span class="glyphicon glyphicon-remove"></span> 
+			        </a> 
+				    {% endif %}
+				    {% if article.payment_received_on %}
+					    <a href="#" class="btn btn-info btn-sm">
+				          Payment <span class="glyphicon glyphicon-ok"></span> 
+				        </a>
+					{% else %}
+				        <a href="#" class="btn btn-danger btn-sm">
+				          Payment rcvd <span class="glyphicon glyphicon-remove"></span> 
+				        </a>     
+				    {% endif %}
+				    
+					<input id="Button1" type="button" value="View" onclick="switchVisible();"/> 
+			    </div>
+			    <p style="margin: 0;font-size: 0.9em; color: #064d68;font-style: inherit;font-family: verdana;">
+			       Article Id - {{ article.booking_id }}
+			    
+			    </p>
+			    <h2 style="padding:4px 0 4px 0;margin: 0;font-size: 1.8em; color: #064d68; line-height: 1.5em;font-style: inherit;font-family: verdana;">
+			       {{ article.article_title }} | <a href="{% url 'article_edit' article.slug %}">Edit</a>
+			    </h2>
+			    <p>
+			    {% if article.author_set.all %}
+					{% for author in article.author_set.all %}
+			          {{ author.author_type }} name - {{ author.author_name }}
+			          {% if author.affiliation %} 
+			           | {{ author.affiliation }}
+			          {% else %}
+					    | <span style="color: red">Affiliation empty</span> 
+					  {% endif %}
+					  {% if author.department %} 
+			           | {{ author.department }}
+			          {% else %}
+					    | <span style="color: red">Department empty</span> 
+					  {% endif %}
+					  {% if author.address %} 
+			           | {{ author.address }}
+			          {% else %}
+					    | <span style="color: red">Address empty</span> 
+					  {% endif %}
+					  {% if author.author_country %} 
+			           | {{ author.author_country }}
+			          {% else %}
+					    | <span style="color: red">Author country empty</span> 
+					  {% endif %}
+					  {% if author.email %} 
+			           | {{ author.email }}
+			          {% else %}
+					    | <span style="color: red">Email empty</span> 
+					  {% endif %}
+					  {% if author.tel %} 
+			           | {{ author.tel }}
+			          {% else %}
+					    | <span style="color: red">Tel empty</span> 
+					  {% endif %}
+					  {% if author.orcid_id %} 
+			           | {{ author.orcid_id }}
+			          {% else %}
+					    | <span style="color: red">Orcid id emty</span> 
+					  {% endif %}
+					  <a href="{% url 'author_edit' article.slug author.pk %}">Edit</a> | <a href="{% url 'author_delete' article.slug author.pk %}">Delete</a>
+					  <br>
+			        {% endfor %}
+			    {% else %}
+			        <span style="color: red">Author empty please add </span>
+				{% endif %}
+			   
+			    </p>
+			    <p>
+			    {% if article.catagory %}
+			    Paper recived from - {{ article.catagory }} 
+			    {% endif %}
+			    {% if article.subject_name %}
+			    | Subject - {{ article.subject_name }} 
+			    {% else %}
+			    | <span style="color: red">Subject - empty </span> 
+			    {% endif %}
+			    {% if article.word_count %}
+			    | Word - {{ article.word_count }}
+			    {% else %}
+			    | <span style="color: red">Word - empty</span>
+			    {% endif %}
+			    | <a href="{% url 'subject_word_edit' article.slug %}">Edit</a>
+			    </p>
+			    <p>
+			    {% if article.paper_received %}
+			    Paper recived date - {{ article.paper_received }}
+			    {% else %}
+			    <span style="color: red">Paper recived date - empty</span>
+			    {% endif %}
+			    {% if article.expected_delivery_date %}
+			    | Expected delivery date - {{ article.expected_delivery_date }} 
+			    {% else %}
+			    | <span style="color: red">Expected delivery date - empty</span>
+			    {% endif %}
+			    | <a href="{% url 'stage_add' article.slug %}">Edit</a>
+			    </p>
+			    <p>
+			    {% if article.paper_sent_author %}
+			    Delivery date - {{ article.paper_sent_author }}
+			    {% else %}
+			    <span style="color: red">Delivery date - empty </span>
+			    {% endif %}
+			    {% if article.payment_received_on %}
+			    | Payment received date - {{ article.payment_received_on }}
+			    {% else %}
+			    | <span style="color: red">Payment received date - empty </span>
+			    {% endif %}
+			    | <a href="{% url 'payment_delivery_add' article.slug %}">Edit</a>	
+			    </p>
+			    {% if article.catagory == 'Partner' %}
+				    {% if article.articlepartner_set.all %}
+					    {% for ap in article.articlepartner_set.all %}
+					    <p> Partner -
+					    {{ ap.partner }}
+						    {% if ap.partner_serial_send_no %}
+						     | Partner referance serial no - {{ ap.partner_serial_send_no }}
+						    
+						    {% else %}
+						    | <span style="color: red">Partner referance serial no empty</span> 
+						    {% endif %}
+						 | <a href="{% url 'partner_article_edit' article.slug ap.pk %}">Edit</a> | <a href="{% url 'partner_article_delete' article.slug ap.pk %}">Delete</a> 
+						 </p>
+					    {% endfor %}
+				    {% else %}
+				     	<p><span style="color: red">Partner empty</span></p>
+				    {% endif %}
+			    {% endif %}
+			    {% if article.target_journal_set.all %} 
+				    {% for t in article.target_journal_set.all %}
+				    <p> Target journal -
+				    {{ t.journal_name }}
+				    	{% if t.publisher_name %}
+				    		| {{ t.publisher_name }}
+				    	{% else %}
+				    		| <span style="color: red">publisher name empty</span>
+				    	{% endif %}
+				    	{% if t.issn %}
+				    		| {{ t.issn }}
+				    	{% else %}
+				    		| <span style="color: red">issn empty</span>
+				    	{% endif %}
+				    	{% if t.impact_factor %}
+				    		| {{ t.impact_factor }}
+				    	{% else %}
+				    		| <span style="color: red">impact factor empty</span>
+				    	{% endif %}
+				    	| <a href="{% url 'target_journal_edit' article.slug t.pk %}">Edit</a> | <a href="{% url 'target_journal_delete' article.slug t.pk %}">Delete</a>
+				     </p> 
+				    {% endfor %}
+			    {% else %}
+			     	<p><span style="color: red">Target journal empty</span></p>
+			    {% endif %}
+			    
+			    <p style="font-weight: 600;color:#064d68;">Service for {{ article.catagory }}</p>           
+				  <table class="table table-bordered" style="">
+				    <thead>
+				      <tr>
+				        <th>Service</th>
+				        <th>Author invoice number</th>
+				        <th>Invoice date</th>
+				        <th>Edit/Delete </th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				    <tr>
+				    	{% for ae in article.service_set.all %}
+				    	<td>
+				    		<table class="table" style="margin-top: -9px;margin-bottom: -9px;">
+				    	
+					      	{% if ae.english_editing %}
+					        <tr>
+					        <td>{{ ae.english_editing }}</td>
+					        <td align="right">{{ ae.english_editing_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        </tr>
+					        {% endif %}
+					        {% if ae.scientific_editing %}
+					        <tr>
+					        <td>{{ ae.scientific_editing }}</td>
+					        <td align="right">{{ ae.scientific_editing_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        </tr>
+					        {% endif %}
+					        {% if ae.presubmission_review %}
+					        <tr>
+					        <td>{{ ae.presubmission_review }}</td>
+					        <td align="right">{{ ae.presubmission_review_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        
+					        </tr>
+					        {% endif %}
+					        {% if ae.journal_selection %}
+					        <tr>
+					        <td>{{ ae.journal_selection }}</td>
+					        <td align="right">{{ ae.journal_selection_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					       
+					        </tr>
+
+					        {% endif %}
+						
+				    		</table>
+				    	</td>
+				    	
+				    	<td>
+					        {% if ae.author_invoice_number %}
+					        	{{ ae.author_invoice_number }}
+					        {% else %}
+					        	<span style="color: red">author invoice number empty</span>
+					        {% endif %}
+					    </td>
+					       
+					    <td>
+					        {% if ae.date_invoice %}
+					        	{{ ae.date_invoice }}
+					        {% else %}
+					        	<span style="color: red">invoice date empty</span>
+					        {% endif %}
+					    </td>
+					   
+				    	<td><a href="{% url 'service_edit' article.slug ae.pk %}">Edit</a> | <a href="{% url 'service_delete' article.slug ae.pk %}">Delete</a></td>
+				        {% endfor %}
+				    </tr>
+				    
+				    </tbody>
+				  </table>
+
+			    <p style="font-weight: 600;color:#064d68;"> Editor -</p>
+			    <table class="table table-bordered">
+				    <thead>
+				      <tr>
+				        <th>Editor</th>
+				        <th>Service</th>
+				        <th>Paper sent</th>
+				        <th>Expected date</th>
+				        <th>Returned date</th>
+				        <th>Invoice no.</th>
+				        <th>Payment date</th>
+				        <th>Edit/Delete</th>
+				      </tr>
+				    </thead>
+				    {% for ae in article.articleeditor_set.all %}
+				    <tbody>
+					      <tr>
+					        
+					        <td>{{ ae.editor }}</td>
+					        <td style="width: 290px"> 
+					        <table class="table" style="margin-top: -9px;margin-bottom: -9px;">
+					        {% if ae.english_editing %}
+					        <tr>
+					        <td>{{ ae.english_editing }}</td>
+					        <td align="right">{{ ae.english_editing_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        </tr>
+					        {% endif %}
+					        {% if ae.scientific_editing %}
+					        <tr>
+					        <td>{{ ae.scientific_editing }}</td>
+					        <td align="right">{{ ae.scientific_editing_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        </tr>
+					        {% endif %}
+					        {% if ae.presubmission_review %}
+					        <tr>
+					        <td>{{ ae.presubmission_review }}</td>
+					        <td align="right">{{ ae.presubmission_review_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					        
+					        </tr>
+					        {% endif %}
+					        {% if ae.journal_selection %}
+					        <tr>
+					        <td>{{ ae.journal_selection }}</td>
+					        <td align="right">{{ ae.journal_selection_price }}</td>
+					        <td>{{ ae.service_currency }}</td>
+					       
+					        </tr>
+					        {% endif %}
+					        
+					        </table>
+					        </td>
+					        <td>
+					        {% if ae.paper_sent_editor %}
+					        	{{ ae.paper_sent_editor }}
+					        {% else %}
+					        	<span style="color: red">empty</span>
+					        {% endif %}
+					        </td>
+					        <td>
+					        {% if ae.expected_returned_paper %}
+					        	{{ ae.expected_returned_paper }}
+					        {% else %}
+					        	<span style="color: red">empty</span>
+					        {% endif %}
+					        </td>
+					        <td>
+					        {% if ae.editor_returned_paper %}
+					        	{{ ae.editor_returned_paper }}
+					        {% else %}
+					        	<span style="color: red">empty</span>
+					        {% endif %}
+					        </td>
+					        <td>
+					        {% if ae.editor_invoice_no %}
+					        	{{ ae.editor_invoice_no }}
+					        {% else %}
+					        	<span style="color: red">empty</span>
+					        {% endif %}
+					        </td>
+					        <td>
+					        {% if ae.editor_payment_sent %}
+					        	{{ ae.editor_payment_sent }}
+					        {% else %}
+					        	<span style="color: red">empty</span>
+					        {% endif %}
+					        </td>
+					        <td><a href="{% url 'editor_edit' article.slug ae.pk %}">Edit</a> | <a href="{% url 'editor_delete' article.slug ae.pk %}">Delete</a></td>
+					      </tr>
+				    </tbody>
+				    {% endfor %} 
+				  </table>
+			
+			   	</div>
+			    
+				  
+			   
+			    
+		  </div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).delegate('.option','mouseenter',function(){
+	$('.option-container').addClass('hidden');
+	$(this).next('.option-container').removeClass('hidden');
+});
+
+$(document).delegate('.option-container','mouseleave',function(){
+	$(this).addClass('hidden');
+});
+</script>
+<script>
+var moveLeft = 0;
+var moveDown = 0;
+$('a.popper').hover(function (e) {
+
+    var target = '#' + ($(this).attr('data-popbox'));
+    $(target).show();
+    moveLeft = $(this).outerWidth();
+    moveDown = ($(target).outerHeight() / 2);
+}, function () {
+    var target = '#' + ($(this).attr('data-popbox'));
+    if (!($("a.popper").hasClass("show"))) {
+        $(target).hide();
+    }
+});
+/**
+$('a.popper').mousemove(function (e) {
+    var target = '#' + ($(this).attr('data-popbox'));
+
+    leftD = e.pageX + parseInt(moveLeft);
+    maxRight = leftD + $(target).outerWidth();
+    windowLeft = $(window).width() - 40;
+    windowRight = 0;
+    maxLeft = e.pageX - (parseInt(moveLeft) + $(target).outerWidth() + 20);
+
+    if (maxRight > windowLeft && maxLeft > windowRight) {
+        leftD = maxLeft;
+    }
+
+    topD = e.pageY - parseInt(moveDown);
+    maxBottom = parseInt(e.pageY + parseInt(moveDown) + 20);
+    windowBottom = parseInt(parseInt($(document).scrollTop()) + parseInt($(window).height()));
+    maxTop = topD;
+    windowTop = parseInt($(document).scrollTop());
+    if (maxBottom > windowBottom) {
+        topD = windowBottom - $(target).outerHeight() - 20;
+    } else if (maxTop < windowTop) {
+        topD = windowTop + 20;
+    }
+
+    $(target).css('top', topD).css('left', leftD);
+});
+$('a.popper').click(function (e) {
+    var target = '#' + ($(this).attr('data-popbox'));
+    if (!($(this).hasClass("show"))) {
+        $(target).show();
+    }
+    $(this).toggleClass("show");
+});**/
+</script>
+<script>
+function switchVisible() {
+            if (document.getElementById('Div1')) {
+
+                if (document.getElementById('Div1').style.display == 'none') {
+                    document.getElementById('Div1').style.display = 'block';
+                    document.getElementById('Div2').style.display = 'none';
+                }
+                else {
+                    document.getElementById('Div1').style.display = 'none';
+                    document.getElementById('Div2').style.display = 'block';
+                }
+            }
+}
+</script>
+
+{% endblock %}

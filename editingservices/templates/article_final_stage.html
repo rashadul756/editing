@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block title %}Admin {% endblock %}
+
+{% block body %}
+<div style="background:#227e85;border:none;">
+	<div class="container-fluid">
+		<div class="row">
+		  <div class="col-sm-2 admin-sidebar" style="color:#FFF">
+		    <ul id="menu-content" class="menu-content">
+		        <li>
+			        <a href="{% url 'article' %}">Article 
+			        
+			        <span class="label label-info pull-right inbox-notification">
+                            {{ total_article }}
+                        </span>
+			        </a>
+		        </li> 
+		        {% for key,value in category_list.items %}
+                <li>
+                    <a href="{% url 'article_sort' key %}">
+                                    {{ value.1 }}
+                        <span class="label label-info pull-right inbox-notification">
+                            
+                            {{value.0}}
+                        </span>
+                    </a>
+                </li>
+                {% endfor %}
+                <li>
+			        <a href="{% url 'article_procesing_stage' %}">Procesing stage 
+			       
+			        </a>
+		        </li>
+		        <li>
+			        <a href="{% url 'article_sent_author' %}">Mid stage 
+			        </a>
+		        </li>
+		        <li>
+			        <a href="{% url 'final_stage' %}">Final stage 
+			        </a>
+		        </li>
+		    </ul>
+		  </div>
+		  <div class="col-sm-10" style="background:#FFF; min-height:620px">
+			    <div style="color: #000;font-style: inherit;font-family: verdana;background: #ddd;padding: 10px;margin-right: -15px;margin-left: -15px;" >
+			    	<div class="row" style="margin-right: -0px;margin-left: -0px;">
+			    	
+					<div class="col-sm-12"  align="right">
+				    <ul class="pagination" >
+				    	
+				    	{% for letter in letters %}
+				        <li class="">
+				          <a href="{% url 'article_sort_char' letter %}">
+				            {{letter}} 
+				          </a>
+				        </li>
+				        {% endfor %}
+				    </ul>
+				    </div>
+				  </div>
+				  </div>
+				  <div style="color: #000;font-style: inherit;font-family: verdana;background: #ddd;padding: 10px;margin-right: -15px;margin-left: -15px;" >
+			    	<div class="row" style="margin-right: -0px;margin-left: -0px;">
+			    	<div class="col-sm-12" align="right">
+			    	<form method="GET" action="" id="searchform" align="">
+
+					    <input class="" id="searchbox" name="search" type="text" value="{{ request.GET.article_title }}" placeholder="Search..."/>
+					    <button id="search_submit" type="submit" ><i class="fa fa-search text-grey" aria-hidden="true"></i></button>
+					</form>
+					</div>
+					
+				  </div>
+				  </div>
+
+				  <div style="max-height: 508px;overflow: auto;width: auto;margin-right: -15px;">
+					  	
+					    
+					    <div>
+					       	<h4>Final stage</h4>
+					       	{% for a in article %}
+					    	
+					      			{% if a.payment_received_on %}
+					      				{% if a.paper_sent_author %}
+					      				<div class="container-fluid">
+									        <div class="row">
+									        	<div class="col-sm-2">
+									        		{{ a.booking_id }}
+									        	</div>
+									        	<div class="col-sm-8">
+									        		<a href="{% url 'article_detail' a.slug %}">{{ a.article_title }}</a>
+									        	</div>
+									        	<div class="col-sm-1">
+									        		<a href="{% url 'article_pdf' a.slug %}" class="btn btn-primary btn-sm">
+									        		  Download </a>
+									        	</div>
+									        </div>
+									    </div>
+
+							        	{% endif %}
+							        {% endif %}
+					       	{% endfor %}
+					    </div>
+					    <br>
+					    <br>
+					    
+			    </div>	
+	      		
+		  </div>
+		</div>
+	</div>
+</div>
+{% endblock %}

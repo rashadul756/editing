@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="X-UA-Compatible" content="IE=8">
+<TITLE>{{article.booking_id}}</TITLE>
+<META name="generator" content="BCL easyConverter SDK 5.0.101">
+<STYLE type="text/css">
+
+body {margin-top: 0px;margin-left: 0px;}
+
+#page_1 {position:relative; overflow: hidden;padding:0px;border: none;}
+
+#p1dimg1 {text-align: center; padding-top: 20px;background-color: #227e85;padding-bottom: 80px;}
+
+
+
+
+
+.dclr {clear:both;float:none;height:1px;margin:0px;padding:0px;overflow:hidden;}
+
+.ft0{font: bold 35px 'Corbel';line-height: 0px;}
+.ft1{font: 14px 'Calibri';color: #8e8e8e;line-height: 20px;}
+.ft2{font: bold 20px 'Calibri';color: #8e8e8e;line-height: 28px;}
+.ft3{font: bold 16px 'Arial';line-height: 25px;}
+.ft4{font: 14px 'Arial';line-height: 20px;}
+.ft5{font: 11px 'Calibri';line-height: 13px;position: relative; bottom: 5px;}
+.ft6{font: 11px 'Calibri';line-height: 28px;}
+.ft8{font: 12px 'Arial';color: #6e7b92;line-height: 15px;}
+.ft9{font: 12px 'Arial';color: #8e8e8e;line-height: 15px;}
+.ft10{font: 11px 'Calibri';text-decoration: underline;line-height: 16px;}
+.ft11{font: 11px 'Calibri';line-height: 16px;}
+
+.p0{text-align: center;padding-top: -90px;padding-bottom: 0px;margin-top: 0px;margin-bottom: 0px;}
+.p1{text-align: center;padding-left: 0px;padding-right: 0px;margin-top: 0px;margin-bottom: 0px;}
+.p2{text-align: center;padding-left: 0px;padding-top: 30px;margin-bottom: 0px;}
+.p3{text-align: center;padding-left: 0px;margin-top: 0px;margin-bottom: 0px;}
+.p4{text-align: center;padding-left: 0px;margin-top: 2px;margin-bottom: 0px;}
+.p5{text-align: center;padding-left: 0px;margin-top: 52px;margin-bottom: 0px;}
+.p6{text-align: center;padding-left: 0px;margin-top: 38px;margin-bottom: 0px;}
+.p7{text-align: center;padding-left: 0px;padding-top: 0px;margin-bottom: 0px;}
+.p8{text-align: center;padding-left: 0px;padding-top: -20px;margin-bottom: 0px;}
+.p9{text-align: center;padding-left: 0px;padding-top: 0px;margin-bottom: 0px;position: absolute;display: block;}
+.p10{text-align: center;padding-left: 0px;padding-top: -20px;margin-bottom: 0px;}
+.p11{text-align: justify;padding-left: 0px;padding-right: 3px;padding-top: 90px;}
+.p12{text-align: justify;padding-left: 10px;padding-top: 20px;padding-bottom:20px;padding-right: 0px; background-color: #227e85;}
+
+
+
+
+</STYLE>
+</HEAD>
+
+<BODY>
+<DIV id="page_1">
+<DIV id="p1dimg1">
+<img src="http://escienta.com/wp-content/uploads/2018/02/escientia-logo1v4-Full-white-190px.png">
+</DIV>
+<DIV class="dclr"></DIV>
+<P class="p0 ft0">Certificate of Editing</P>
+<P class="p1 ft1">This document certifies that the manuscript listed below was edited for proper English language, grammar, punctuation, spelling, and overall style by one or more of the highly qualified native <NOBR>English-speaking</NOBR> editors at eScienta.</P>
+<hr>
+<P class="p2 ft2">Manuscript title:</P>
+<P class="p3 ft3">{{article}}</P>
+
+<P class="p5 ft2">Authors:</P>
+<P class="p6 ft4">
+{% if article.pdf_authors_edit %}
+{{article.pdf_authors_edit}}
+{% else %}
+	{% if article.author_set.all%}
+		{% for author in article.author_set.all %}
+			{{ author.author_name }}, 
+		{% endfor %}
+	{% else %}
+	----------
+	{% endif %}
+{% endif %}
+</P>
+<P class="p7 ft2">Date issued:</P>
+<P class="p8 ft6"><NOBR>
+{% if article.pdf_issue_date_edit %}
+{{article.pdf_issue_date_edit}}
+{% else %}	
+{% now "jS F Y" %}
+{% endif %}
+</NOBR></P>
+<P class="p9 ft2">Certificate number:</P>
+<P class="p10 ft6"><NOBR>{{article.booking_id}}</NOBR></P>
+<P class="p11 ft9">This document certifies that the manuscript listed above was edited for proper English language, grammar, punctuation, spelling, and overall style by one or more of the highly qualified native <NOBR>English-speaking</NOBR> editors at eScienta. Neither the research content nor the authors' intentions were altered in any way during the editing process. Documents receiving this certification should be <NOBR>English-ready</NOBR> for publication; however, the author has the ability to accept or reject our suggestions and changes. To verify the final eScienta edited version or if you have any questions or concerns about this edited document, please contact eScienta at <SPAN class="ft8">info@escienta.com</SPAN>.</P>
+<hr>
+<P class="p12 ft11">eScienta provides a range of editing, translation and manuscript services for researchers and publishers around the world. Our PhD editors are all native Englis speakers from the United Kingdom, USA, Australia and New Zealand. Our editors are subject specialists and possess the highest qualifications to edit researc manuscripts written by <NOBR>non-native</NOBR> English speakers. For more information about our company and services, please visit <SPAN class="ft10"><a href="http://www.escienta.com/">www.escienta.com</a></SPAN></P>
+</DIV>
+</BODY>
+</HTML>

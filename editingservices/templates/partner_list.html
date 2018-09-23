@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Admin {% endblock %}
+
+{% block body %}
+<div style="background:#227e85;border:none;">
+	<div class="container-fluid">
+		<div class="row">
+		  <div class="col-sm-2 admin-sidebar" style="color:#FFF">
+		    <ul id="menu-content" class="menu-content">
+		        <li><a href="{% url 'create_article' %}">Create article</a></li>
+		        <li><a href="{% url 'create_partner' %}">Create partner</a></li>
+		        <li><a href="{% url 'create_editor' %}">Create editor</a></li>
+		        <li><a href="{% url 'root_admin' %}">List of article</a></li> 
+		        <li><a href="{% url 'partner_list' %}">List of partner</a></li>
+		        <li><a href="{% url 'editor_list' %}">List of editor</a></li>   
+		    </ul>
+		  </div>
+		  <div class="col-sm-10" style="background:#FFF; min-height:620px">
+			    <h2 style="padding:10px 0 12px 0;margin: 0;font-size: 1.8em; color: #064d68; line-height: 1.5em;font-style: inherit;font-family: verdana;">
+			       	List of partner	
+			    </h2> 
+			    <table class="table">
+			    	<thead>
+			    		<th>Id no</th>
+			    		<th>Partner name</th>
+			    		<th>Partner contact</th>
+			    		<th>Partner address</th>
+			    		<th>Partner country</th>
+			    		<th>Partner email</th>
+			    		<th>Edit/Delete</th>
+			    	</thead>
+			    	{% for p in partner %}
+			       	<tr>
+			       	
+			       		<td>{{ p.id }}</td>
+			       		<td>{{ p.partner_name }}</td>
+			       		<td>{{ p.partner_contact }}</td>
+			       		<td>{{ p.partner_address }}</td>
+			       		<td>{{ p.partner_partner_country }}</td>
+			       		<td>{{ p.partner_email }}</td>
+			       		<td><a href="{% url 'edit_partner' p.id %}">Edite</a> | <a href="{% url 'delete_partner' p.id %}">Delete</a></td>
+			       	</tr>
+			       	{% endfor %}	
+		       	</table>       
+		  </div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

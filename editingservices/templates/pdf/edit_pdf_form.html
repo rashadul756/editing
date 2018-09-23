@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Admin {% endblock %}
+
+{% block body %}
+<div style="background:#227e85;border:none;">
+	<div class="container-fluid">
+		<div class="row">
+		  <div class="col-sm-2 admin-sidebar" style="color:#FFF">
+		   
+		  </div>
+		  <div class="col-sm-10" style="background:#FFF; min-height:620px">
+			    <div style="color: #000;font-style: inherit;font-family: verdana;background: #ddd;padding: 10px;margin-right: -15px;margin-left: -15px;" align="right">
+				   
+					 
+					    
+			    </div>
+			    <h2 style="padding:10px 0 12px 0;margin: 0;font-size: 1.8em; color: #064d68; line-height: 1.5em;font-style: inherit;font-family: verdana;">
+		       	Edit pdf
+		       </h2>
+		       	<form class="" action="" method="post">{% csrf_token %}
+                    <div class="form-group required">
+                    <label class="control-label" for="">Authors</label>
+
+                    <input type="textarea" name="pdf_authors_edit"
+                    value="{% if a.author_set.all%}{% for author in a.author_set.all %}{{ author.author_name }}, {% endfor %}{% else %}----------{% endif %}" 
+                     class="form-control">
+                    	
+                    </input>
+                    
+                    </div>
+                  	<div class="form-group required">
+                    <label class="control-label" for="">Issue date</label>
+                    <input type="text" value="{% now "jS F Y" %}" name="pdf_issue_date_edit">
+                  	</div>
+                  	
+              		<div class="form-group">
+              		<div class="">
+                   	<button type="submit" class="btn btn-primary  btn-large" id="submit"><span>Create Entry</span></button> 
+                   	<label for=""> Or </label><span> <a style="color:#FF7700" href="">Cancel</a></span> 
+              		</div>
+              		</div>
+                    <div class="">
+                     <label class="control-label" for="" style="color:#c00;font-style:normal; padding-top:10px;padding-bottom: 10px;;">required fields</label>
+                     </div>              		
+            	</form> 	
+	      		
+		  </div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
