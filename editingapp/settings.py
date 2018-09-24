@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY',')2&*c*dke_voj#ub%swdj5v!k1)0!@tj4pu3--
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS =  ['editing-app.herokuapp.com', '.editing-app.com']
+ALLOWED_HOSTS =  ['escienta-editing.herokuapp.com', '.escienta-editing.com']
 
 
 # Application definition
