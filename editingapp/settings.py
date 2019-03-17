@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY',')2&*c*dke_voj#ub%swdj5v!k1)0!@tj4pu3--(%h)ashi)9ii')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS =  ['escienta-editing.herokuapp.com', '.escienta-editing.com']
+ALLOWED_HOSTS =  ['*']
 
 
 # Application definition
@@ -112,14 +112,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-uk'
 
 TIME_ZONE = 'UTC'
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)

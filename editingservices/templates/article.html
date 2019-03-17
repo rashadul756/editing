@@ -74,7 +74,7 @@
 
 				  <div style="max-height: 508px;overflow: auto;width: auto;margin-right: -15px;">
 					  	<div>
-					    	<h4>Procesing stage</h4>
+					    	<h4 style="color: gray">Procesing stage</h4><br>
 					    	
 					    	{% for a in article %}
 					    		{% if a.paper_sent_author %}
@@ -82,7 +82,7 @@
 					    		{% elif a.certificate_date %}
 					    		{% else %}
 					    		<div class="container-fluid">
-							        <div class="row">
+							        <div class="row" style="margin-bottom:25px;">
 							        	<div class="col-sm-2">
 							        		{{ a.booking_id }}
 							        	</div>
@@ -98,7 +98,7 @@
 				       	</div>
 				       	
 					    <div>
-					       	<h4>Mid stage</h4>
+					       	<h4 style="color:cornflowerblue">Mid stage</h4> <br>
 					    	
 					       	{% for a in article %}
 				      			{% if a.payment_received_on %}
@@ -106,7 +106,7 @@
 				      				
 						       		{% else %}
 						       		<div class="container-fluid">
-							        <div class="row">
+							        <div class="row" style="margin-bottom:25px;">
 							        	<div class="col-sm-2">
 							        		{{ a.booking_id }}
 							        	</div>
@@ -162,7 +162,7 @@
 				      				{% if a.payment_received_on %}
 						       		{% else %}
 						       		<div class="container-fluid">
-							        <div class="row">
+							        <div class="row" style="margin-bottom:25px;">
 							        	<div class="col-sm-2">
 							        		{{ a.booking_id }}
 							        	</div>
@@ -211,13 +211,13 @@
 
 					    </div>
 					    <div>
-					       	<h4>Final stage</h4>
+					       	<h4 style="color:green">Final stage</h4><br>
 					       	{% for a in article %}
 					    	
 					      			{% if a.payment_received_on %}
 					      				{% if a.paper_sent_author %}
 					      				<div class="container-fluid">
-									        <div class="row">
+									        <div class="row" style="margin-bottom:25px;">
 									        	<div class="col-sm-2">
 									        		{{ a.booking_id }}
 									        	</div>

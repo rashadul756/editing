@@ -53,7 +53,7 @@ class Article(models.Model):
 		('Researcher','Researcher'),
 	)
 	catagory = models.CharField(max_length=20, choices=ARTICLE_TYPE)
-	article_title = models.CharField(max_length=250)
+	article_title = models.CharField(max_length=1250)
 	subject_name = models.CharField(max_length=150,null=True, blank=True)
 	word_count = models.CharField(max_length=150,null=True, blank=True)
 	paper_received = models.CharField(max_length=10,null=True, blank=True)
@@ -125,7 +125,7 @@ class ArticleEditor(models.Model):
 	presubmission_review_price = models.FloatField(null=True, blank=True, default=0.0)
 	journal_selection = models.CharField(max_length=20,null=True, blank=True, choices=JO_SE_OPTIONS)
 	journal_selection_price = models.FloatField(null=True, blank=True, default=0.0)
-	paper_sent_editor = models.CharField(max_length=10, null=True, blank=True)
+	paper_sent_editor = models.CharField(max_length=10, null=True, blank = True)
 	expected_returned_paper = models.CharField(max_length=10, null=True, blank=True)
 	editor_returned_paper = models.CharField(max_length=10, null=True, blank=True)
 	editor_invoice_no = models.CharField(max_length=1000, null= True, blank = True)

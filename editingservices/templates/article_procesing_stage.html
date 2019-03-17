@@ -2,18 +2,17 @@
 {% block title %}Admin {% endblock %}
 
 {% block body %}
-<div style="background:#227e85;border:none;">
+<div style="background:#227e85;border:none; word-wrap: break-word;">
 	<div class="container-fluid">
 		<div class="row">
-		  <div class="col-sm-2 admin-sidebar" style="color:#FFF">
-		    <ul id="menu-content" class="menu-content">
+		  <div class="col-sm-2 admin-sidebar" style="color:#FFF;">
+		    <ul id="menu-content" class="menu-content" style="word-wrap:break-word">
 		        <li>
-			        <a href="{% url 'article' %}">Article 
+			        <a href="{% url 'article' %}">Article <br>
 			        
 			        <span class="label label-info pull-right inbox-notification">
-                            {{ total_article }}
-                        </span>
-			        </a>
+                            {{ total_article } </span>
+							</a>
 		        </li> 
 		        {% for key,value in category_list.items %}
                 <li>
@@ -23,14 +22,14 @@
                             
                             {{value.0}}
                         </span>
-                    </a>
+										</a>
+									<br>
                 </li>
                 {% endfor %}
                 <li>
-			        <a href="{% url 'article_procesing_stage' %}">Procesing stage 
-			       
-			        </a>
-		        </li>
+									<a href="{% url 'article_procesing_stage' %}">Procesing stage</a>
+								<li>
+				
 		        <li>
 			        <a href="{% url 'article_sent_author' %}">Mid stage 
 			        </a>
@@ -72,7 +71,7 @@
 				  </div>
 				  </div>
 
-				  <div style="max-height: 508px;overflow: auto;width: auto;margin-right: -15px;">
+				  <div style="max-height: 508px;overflow: auto; width: auto; margin-right: -15px;">
 					  	<div>
 					    	<h4>Procesing stage</h4>
 					    	
@@ -82,8 +81,8 @@
 					    		{% elif a.certificate_date %}
 					    		{% else %}
 					    		<div class="container-fluid">
-							        <div class="row">
-							        	<div class="col-sm-2">
+							        <div class="row" style="margin-bottom:25px;">
+							        	<div class="col-sm-3">
 							        		{{ a.booking_id }}
 							        	</div>
 							        	<div class="col-sm-9">
